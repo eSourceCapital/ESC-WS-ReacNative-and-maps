@@ -44,7 +44,7 @@ Este comando nos abrirá la interface de expo (expo start), donde podremos ver e
 ## Requerimientos
 Mapa con marcadores, que sean registrados como Tareas de una lista con estados: realizado y no realizado, con posibilidad de agregar nuevos.
 
-## Estrucura
+## Estructura
 En el workshop modificaremos las 2 tabs generadas automáticamente por la plantilla. Dejando en una, el espacio para la Lista de Tareas y en otra el Mapa.
 
 ## Insertando el Mapa
