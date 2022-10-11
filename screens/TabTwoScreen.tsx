@@ -1,10 +1,28 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import { Marker } from "react-native-maps";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import MapView from "react-native-maps";
+import { useState, useEffect } from "react";
+import { getTaskList } from "../utils/db";
 
 export default function TabTwoScreen() {
+  const [list_data, set_list_data]: any = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    let items: any = [];
+    try {
+      items = await getTaskList();
+    } catch (error) {
+      Alert.alert("Error", "No ha sido posible obtener la lista ");
+    }
+    set_list_data(items);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mapas</Text>
@@ -34,6 +52,19 @@ export default function TabTwoScreen() {
             longitude: -74.08175,
           }}
         />
+        {list_data &&
+          list_data.map((item: any, index: number) => {
+            return (
+              <Marker
+                key={item.id}
+                title={"Ciudad de Bogota (" + item.id + "):" + item.completed}
+                coordinate={{
+                  latitude: item.lat,
+                  longitude: item.lng,
+                }}
+              />
+            );
+          })}
       </MapView>
     </View>
   );
